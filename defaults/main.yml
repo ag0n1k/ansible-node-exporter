@@ -2,6 +2,15 @@
 node_exporter_version: 0.17.0
 node_exporter_web_listen_address: "0.0.0.0:9100"
 
+node_exporter_archive_path: "https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter_version }}/node_exporter-{{ node_exporter_version }}.linux-{{ go_arch }}.tar.gz"  # yamllint disable-line
+
+node_exporter_service_path: "/lib/systemd/system/prometheus_exporter_node.service"
+
+node_exporter_system_group: "prometheus"
+node_exporter_system_user: "{{ node_exporter_system_group }}"
+
+node_exporter_path: "/usr/lib/prometheus/exporters/node"
+
 node_exporter_textfile_dir: "/var/lib/node_exporter"
 
 node_exporter_enabled_collectors:

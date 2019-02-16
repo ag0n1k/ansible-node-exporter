@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  author: Roman Demachkovych, Pawel Krupa
+  author: ag0n1k forked, Roman Demachkovych, Pawel Krupa
   description: Prometheus Node Exporter
   license: MIT
   company: none

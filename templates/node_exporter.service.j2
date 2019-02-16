@@ -1,3 +1,4 @@
+#jinja2: trim_blocks: True, lstrip_blocks: True
 {{ ansible_managed | comment }}
 
 [Unit]
@@ -10,21 +11,21 @@ User={{ node_exporter_system_user }}
 Group={{ node_exporter_system_group }}
 ExecStart=/usr/local/bin/node_exporter \
 {% for collector in node_exporter_enabled_collectors -%}
-{%   if not collector is mapping %}
-    --collector.{{ collector }} \
-{%   else -%}
-{%     set name, options = (collector.items()|list)[0] -%}
-{%     for k,v in options|dictsort %}
-    --collector.{{ name }}.{{ k }}={{ v }} \
-{%     endfor -%}
-{%   endif -%}
+  {% if not collector is mapping %}
+  --collector.{{ collector }} \
+  {% else -%}
+    {% set name, options = (collector.items()|list)[0] -%}
+    {% for k,v in options|dictsort %}
+  --collector.{{ name }}.{{ k }}={{ v }} \
+    {% endfor -%}
+  {% endif -%}
 {% endfor -%}
 {% for collector in node_exporter_disabled_collectors %}
-    --no-collector.{{ collector }} \
+  --no-collector.{{ collector }} \
 {% endfor %}
-    --web.listen-address={{ node_exporter_web_listen_address }}
+  --web.listen-address={{ node_exporter_web_listen_address }}
 
-SyslogIdentifier=node_exporter
+SyslogIdentifier=prometheus_node_exporter
 Restart=always
 
 PrivateTmp=yes
