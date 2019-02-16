@@ -1,0 +1,10 @@
+---
+- name: Run systemd daemon reload
+  systemd:
+    daemon_reload: true
+
+- name: Ensure Node Exporter is running and enabled
+  service:
+    name: "{{ otus_node_exporter_service_name }}"
+    state: started
+    enabled: true

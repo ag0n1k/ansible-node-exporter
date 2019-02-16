@@ -4,13 +4,13 @@
 
 [![Build Status](https://travis-ci.org/cloudalchemy/ansible-node-exporter.svg?branch=master)](https://travis-ci.org/cloudalchemy/ansible-node-exporter)
 [![License](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg)](https://opensource.org/licenses/MIT)
-[![Ansible Role](https://img.shields.io/badge/ansible%20role-cloudalchemy.node_exporter-blue.svg)](https://galaxy.ansible.com/cloudalchemy/node-exporter/)
+[![Ansible Role](https://img.shields.io/badge/ansible%20role-cloudalchemy.otus_node_exporter-blue.svg)](https://galaxy.ansible.com/cloudalchemy/node-exporter/)
 [![GitHub tag](https://img.shields.io/github/tag/cloudalchemy/ansible-node-exporter.svg)](https://github.com/cloudalchemy/ansible-node-exporter/tags)
 [![IRC](https://img.shields.io/badge/irc.freenode.net-%23cloudalchemy-yellow.svg)](https://kiwiirc.com/nextclient/#ircs://irc.freenode.net/#cloudalchemy)
 
 ## Description
 
-Deploy prometheus [node exporter](https://github.com/prometheus/node_exporter) using ansible.
+Deploy prometheus [node exporter](https://github.com/prometheus/otus_node_exporter) using ansible.
 
 ## Requirements
 
@@ -23,11 +23,11 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 
 | Name           | Default Value | Description                        |
 | -------------- | ------------- | -----------------------------------|
-| `node_exporter_version` | 0.17.0 | Node exporter package version |
-| `node_exporter_web_listen_address` | "0.0.0.0:9100" | Address on which node exporter will listen |
-| `node_exporter_enabled_collectors` | [ systemd, textfile ] | List of additionally enabled collectors. It adds collectors to [those enabled by default](https://github.com/prometheus/node_exporter#enabled-by-default) |
-| `node_exporter_disabled_collectors` | [] | List of disabled collectors. By default node_exporter disables collectors listed [here](https://github.com/prometheus/node_exporter#disabled-by-default). |
-| `node_exporter_textfile_dir` | "/var/lib/node_exporter" | Directory used by the [Textfile Collector](https://github.com/prometheus/node_exporter#textfile-collector). To get permissions to write metrics in this directory, users must be in `node-exp` system group.
+| `otus_node_exporter_version` | 0.17.0 | Node exporter package version |
+| `otus_node_exporter_web_listen_address` | "0.0.0.0:9100" | Address on which node exporter will listen |
+| `otus_node_exporter_enabled_collectors` | [ systemd, textfile ] | List of additionally enabled collectors. It adds collectors to [those enabled by default](https://github.com/prometheus/otus_node_exporter#enabled-by-default) |
+| `otus_node_exporter_disabled_collectors` | [] | List of disabled collectors. By default otus_node_exporter disables collectors listed [here](https://github.com/prometheus/otus_node_exporter#disabled-by-default). |
+| `otus_node_exporter_textfile_dir` | "/var/lib/otus_node_exporter" | Directory used by the [Textfile Collector](https://github.com/prometheus/otus_node_exporter#textfile-collector). To get permissions to write metrics in this directory, users must be in `node-exp` system group.
 
 ## Example
 

@@ -1,24 +1,43 @@
 ---
-node_exporter_version: 0.17.0
-node_exporter_web_listen_address: "0.0.0.0:9100"
+otus_node_exporter_version: 0.17.0
+otus_node_exporter_web_listen_address: "0.0.0.0:9100"
 
-node_exporter_archive_path: "https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter_version }}/node_exporter-{{ node_exporter_version }}.linux-{{ go_arch }}.tar.gz"  # yamllint disable-line
+otus_node_exporter_archive_path: "https://github.com/prometheus/node_exporter/releases/download/v{{ otus_node_exporter_version }}/node_exporter-{{ otus_node_exporter_version }}.linux-{{ go_arch }}.tar.gz"  # yamllint disable-line
 
-node_exporter_service_path: "/lib/systemd/system/prometheus_exporter_node.service"
+otus_node_exporter_user_configuration:
+  username: prometheus
+  group: prometheus
+  system: true
+  shell: /usr/bin/nologin
+  home: /usr/lib/prometheus/exporters/node
+  ##note: in prometheus home directory will be unpacked distro,
+  # unpacked logic works only when directory does not exist, but user must exist so:
+  # - create user and define home, without creating home directory
+  # - unpack distro and create home directory
+  # also if need to install in other directory there is an opportunity to define another root_path and path
+  create_home: false
 
-node_exporter_system_group: "prometheus"
-node_exporter_system_user: "{{ node_exporter_system_group }}"
+otus_node_exporter_path: "{{ otus_node_exporter_user_configuration.home }}"
+otus_node_exporter_path_mode: "0755"
 
-node_exporter_path: "/usr/lib/prometheus/exporters/node"
+otus_node_exporter_bin_dir: /usr/bin
 
-node_exporter_textfile_dir: "/var/lib/node_exporter"
+otus_node_exporter_service_dir: /lib/systemd/system
+otus_node_exporter_service_name: prometheus_exporter_node
 
-node_exporter_enabled_collectors:
+otus_node_exporter_system_group: "prometheus"
+otus_node_exporter_system_user: "{{ otus_node_exporter_system_group }}"
+
+otus_node_exporter_install_method: tar
+
+otus_node_exporter_textfile_dir: "/var/lib/otus_node_exporter"
+
+otus_node_exporter_enabled_collectors:
   - systemd
   - textfile:
-      directory: "{{ node_exporter_textfile_dir }}"
+      directory: "{{ otus_node_exporter_textfile_dir }}"
 #  - filesystem:
 #      ignored-mount-points: "^/(sys|proc|dev)($|/)"
 #      ignored-fs-types: "^(sys|proc|auto)fs$"
 
-node_exporter_disabled_collectors: []
+otus_node_exporter_disabled_collectors: []

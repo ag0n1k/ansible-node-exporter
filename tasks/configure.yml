@@ -2,19 +2,19 @@
 - name: Copy the Node Exporter systemd service file
   template:
     src: node_exporter.service.j2
-    dest: "{{ node_exporter_service_path }}"
+    dest: "{{ otus_node_exporter_service_dir }}/{{ otus_node_exporter_service_name }}.service"
     owner: root
     group: root
     mode: 0644
-  register: __ansible_node_exporter_config
+  register: __ansible_otus_node_exporter_config
 
 - name: Create texfile collector dir
-  when: node_exporter_textfile_dir | length > 0
+  when: otus_node_exporter_textfile_dir | length > 0
   file:
-    path: "{{ node_exporter_textfile_dir }}"
+    path: "{{ otus_node_exporter_textfile_dir }}"
     state: directory
-    owner: "{{ node_exporter_system_user }}"
-    group: "{{ node_exporter_system_group }}"
+    owner: "{{ otus_node_exporter_user_configuration.username }}"
+    group: "{{ otus_node_exporter_user_configuration.group }}"
     recurse: true
     mode: 0775
 
@@ -23,7 +23,7 @@
     - ansible_version.full is version_compare('2.4', '>=')
     - ansible_selinux.status == "enabled"
   seport:
-    ports: "{{ node_exporter_web_listen_address.split(':')[1] }}"
+    ports: "{{ otus_node_exporter_web_listen_address.split(':')[1] }}"
     proto: tcp
     setype: http_port_t
     state: present

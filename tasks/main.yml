@@ -8,15 +8,11 @@
 
 - include_tasks: preflight.yml
 
-- include_tasks: install.yml
+- import_tasks: "install-{{ otus_node_exporter_install_method }}.yml"
   become: true
 
 - import_tasks: configure.yml
   become: true
 
-- name: Ensure Node Exporter is enabled on boot
+- import_tasks: state.yml
   become: true
-  systemd:
-    daemon_reload: true
-    name: node_exporter
-    enabled: true

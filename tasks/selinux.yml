@@ -13,7 +13,7 @@
     - ansible_version.full is version_compare('2.4', '>=')
     - ansible_selinux.status == "enabled"
   seport:
-    ports: "{{ node_exporter_web_listen_address.split(':')[1] }}"
+    ports: "{{ otus_node_exporter_web_listen_address.split(':')[1] }}"
     proto: tcp
     setype: http_port_t
     state: present

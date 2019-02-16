@@ -7,7 +7,7 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 
 def test_directories(host):
     dirs = [
-        "/var/lib/node_exporter"
+        "/var/lib/otus_node_exporter"
     ]
     for dir in dirs:
         d = host.file(dir)
@@ -17,8 +17,8 @@ def test_directories(host):
 
 def test_files(host):
     files = [
-        "/etc/systemd/system/node_exporter.service",
-        "/usr/local/bin/node_exporter"
+        "/lib/systemd/system/prometheus_exporter_node.service",
+        "/usr/bin/node_exporter"
     ]
     for file in files:
         f = host.file(file)
@@ -27,14 +27,14 @@ def test_files(host):
 
 
 def test_service(host):
-    s = host.service("node_exporter")
-#    assert s.is_enabled
+    s = host.service("prometheus_exporter_node")
+    assert s.is_enabled
     assert s.is_running
 
 
 def test_socket(host):
     sockets = [
-        "tcp://127.0.0.1:9100"
+        "tcp://0.0.0.0:9100"
     ]
     for socket in sockets:
         s = host.socket(socket)

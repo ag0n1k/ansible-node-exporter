@@ -1,13 +1,11 @@
+---
 extends: default
-ignore: |
-  meta/
 
 rules:
-  braces:
-    max-spaces-inside: 1
-    level: error
-  brackets:
-    max-spaces-inside: 1
-    level: error
+  comments:
+    level: warning
+    require-starting-space: false
+  comments-indentation: disable
   line-length:
     max: 120
+    level: warning

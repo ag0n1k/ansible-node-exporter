@@ -7,10 +7,10 @@ After=network.target
 
 [Service]
 Type=simple
-User={{ node_exporter_system_user }}
-Group={{ node_exporter_system_group }}
-ExecStart=/usr/local/bin/node_exporter \
-{% for collector in node_exporter_enabled_collectors -%}
+User={{ otus_node_exporter_system_user }}
+Group={{ otus_node_exporter_system_group }}
+ExecStart={{ otus_node_exporter_bin_dir }}/node_exporter \
+{% for collector in otus_node_exporter_enabled_collectors -%}
   {% if not collector is mapping %}
   --collector.{{ collector }} \
   {% else -%}
@@ -20,19 +20,19 @@ ExecStart=/usr/local/bin/node_exporter \
     {% endfor -%}
   {% endif -%}
 {% endfor -%}
-{% for collector in node_exporter_disabled_collectors %}
+{% for collector in otus_node_exporter_disabled_collectors %}
   --no-collector.{{ collector }} \
 {% endfor %}
-  --web.listen-address={{ node_exporter_web_listen_address }}
+  --web.listen-address={{ otus_node_exporter_web_listen_address }}
 
-SyslogIdentifier=prometheus_node_exporter
+SyslogIdentifier=prometheus_otus_node_exporter
 Restart=always
 
 PrivateTmp=yes
 ProtectHome=yes
 NoNewPrivileges=yes
 
-{% if node_exporter_systemd_version.stdout | int >= 232 %}
+{% if otus_node_exporter_systemd_version.stdout | int >= 232 %}
 ProtectSystem=strict
 ProtectControlGroups=true
 ProtectKernelModules=true
