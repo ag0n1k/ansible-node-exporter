@@ -5,7 +5,7 @@ otus_node_exporter_web_listen_address: "0.0.0.0:9100"
 otus_node_exporter_archive_path: "https://github.com/prometheus/node_exporter/releases/download/v{{ otus_node_exporter_version }}/node_exporter-{{ otus_node_exporter_version }}.linux-{{ go_arch }}.tar.gz"  # yamllint disable-line
 
 otus_node_exporter_user_configuration:
-  username: prometheus
+  username: prometheus-node-exporter
   group: prometheus
   system: true
   shell: /usr/bin/nologin
